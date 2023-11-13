@@ -1,14 +1,14 @@
-
-
 const express = require('express');
+const path = require('path');
 const app = express();
-const port = process.env.PORT || 3000;  // 修改端口设置
+const port = process.env.PORT || 3000;
 
-// Static files
-app.use(express.static('public'));  // 假设您的前端文件位于名为“public”的目录中
+// 托管静态文件
+app.use(express.static('public'));
 
+// 当访问根路径时发送index.html作为响应
 app.get('/', (req, res) => {
-    res.send('English Speaking Practice App Backend');
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.listen(port, () => {
