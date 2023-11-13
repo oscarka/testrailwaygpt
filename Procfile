@@ -1,1 +1,0 @@
-web: gunicorn -w 4 -b :8080 app:app
