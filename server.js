@@ -1,15 +1,16 @@
 
+
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;  // 修改端口设置
 
-// TODO: Add your Google Cloud Speech-to-Text API key here
-const googleApiKey = 'YOUR_GOOGLE_API_KEY';
+// Static files
+app.use(express.static('public'));  // 假设您的前端文件位于名为“public”的目录中
 
 app.get('/', (req, res) => {
     res.send('English Speaking Practice App Backend');
 });
 
 app.listen(port, () => {
-    console.log(`Server listening at http://localhost:${port}`);
+    console.log(`Server listening on port ${port}`);
 });
