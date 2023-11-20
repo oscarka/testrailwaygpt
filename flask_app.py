@@ -1,16 +1,14 @@
-
 from flask import Flask, request, jsonify, send_from_directory
 import os
 import openai
 
-app = Flask(__name__, static_folder='public', static_url_path='/static')
-
+app = Flask(__name__, static_folder='public')
 
 # Azure OpenAI API 配置
 openai.api_type = "azure"
 openai.api_base = "https://oscarchatapi.openai.azure.com/"
 openai.api_version = "2023-07-01-preview"
-openai.api_key = os.getenv("OPENAI_API_KEY")  # 确保在环境变量中设置了 API 密钥
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 @app.route('/')
 def index():
@@ -20,24 +18,14 @@ def index():
 def analyze():
     customer_data = request.json.get('customerData')
 
-    message_text = [
-        {"role": "system", "content": "You are an AI assistant that helps people find information."},
-        {"role": "user", "content": customer_data},
-        # 可以根据需要添加更多消息
-    ]
-
-    completion = openai.ChatCompletion.create(
-        engine="oscargpt4-32",
-        messages=message_text,
+    # 调用 Azure OpenAI API
+    response = openai.Completion.create(
+        engine="davinci-codex",
+        prompt=customer_data,
         temperature=0.7,
-        max_tokens=800,
-        top_p=0.95,
-        frequency_penalty=0,
-        presence_penalty=0,
-        stop=None
+        max_tokens=150
     )
-
-    return jsonify(completion)
+    return jsonify(response)
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
