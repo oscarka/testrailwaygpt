@@ -1,6 +1,7 @@
+
 document.getElementById('submitButton').addEventListener('click', function() {
     var customerData = document.getElementById('customerInput').value;
-    fetch('https://testrailwaygpt-production.up.railway.app/analyze', {
+    fetch('/analyze', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -16,4 +17,3 @@ document.getElementById('submitButton').addEventListener('click', function() {
         document.getElementById('response').innerHTML = 'Error: ' + error;
     });
 });
-
