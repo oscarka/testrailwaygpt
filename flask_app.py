@@ -5,7 +5,7 @@ import requests
 app = Flask(__name__)
 
 # Azure OpenAI API details
-azure_openai_endpoint = 'https://oscarchatapi.openai.azure.com/deployments/oscargpt4-32/completions?api-version=2023-06-13'
+azure_openai_endpoint = 'https://oscarchatapi.openai.azure.com/openai/deployments/oscargpt4-32/chat/completions?api-version=2023-07-01-preview'
 api_key = 'd331f54b48c44ea7aeee349a01be247c'  # Replace with your actual API key
 default_prompt = '你可否同时扮演一个医学专家和保险精算师...'
 
