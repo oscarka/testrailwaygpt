@@ -1,30 +1,38 @@
-
+import os
 from flask import Flask, request, jsonify
-import requests
+import openai
 
 app = Flask(__name__)
 
-# Azure OpenAI API details
-azure_openai_endpoint = 'https://oscarchatapi.openai.azure.com/openai/deployments/oscargpt4-32/chat/completions?api-version=2023-07-01-preview'
-api_key = 'd331f54b48c44ea7aeee349a01be247c'  # Replace with your actual API key
-default_prompt = '你可否同时扮演一个医学专家和保险精算师...'
+# Azure OpenAI API 配置
+openai.api_type = "azure"
+openai.api_base = "https://oscarchatapi.openai.azure.com/"
+openai.api_version = "2023-07-01-preview"
+openai.api_key = os.getenv("d331f54b48c44ea7aeee349a01be247c")  # 确保在环境变量中设置了 API 密钥
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
     customer_data = request.json.get('customerData')
-    prompt = default_prompt + '\n\n' + customer_data
 
-    headers = {
-        'Content-Type': 'application/json',
-        'Authorization': f'Bearer {api_key}'
-    }
-    data = {
-        'prompt': prompt,
-        'max_tokens': 150
-    }
+    message_text = [
+        {"role": "system", "content": "You are an AI assistant that helps people find information."},
+        {"role": "user", "content": customer_data},
+        # 可以根据需要添加更多消息
+    ]
 
-    response = requests.post(azure_openai_endpoint, json=data, headers=headers)
-    return jsonify(response.json())
+    completion = openai.ChatCompletion.create(
+        engine="oscargpt4-32",
+        messages=message_text,
+        temperature=0.7,
+        max_tokens=800,
+        top_p=0.95,
+        frequency_penalty=0,
+        presence_penalty=0,
+        stop=None
+    )
+
+    return jsonify(completion)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
