@@ -1,17 +1,17 @@
-function sendData() {
+document.getElementById('submitButton').addEventListener('click', function() {
     var customerData = document.getElementById('customerInput').value;
     fetch('/analyze', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ customerData: customerData }),
+        body: JSON.stringify({ customerData: customerData })
     })
     .then(response => response.json())
     .then(data => {
-        document.getElementById('result').innerHTML = '<h3>分析结果：</h3><pre>' + JSON.stringify(data, null, 2) + '</pre>';
+        document.getElementById('response').innerHTML = JSON.stringify(data, null, 2);
     })
-    .catch((error) => {
+    .catch(error => {
         console.error('Error:', error);
     });
-}
+});
