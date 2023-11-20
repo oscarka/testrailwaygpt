@@ -7,7 +7,7 @@ const port = process.env.PORT || 3000;
 
 // Azure OpenAI API details
 
-const azureOpenAIEndpoint = 'https://oscarchatapi.openai.azure.com/';
+const azureOpenAIEndpoint = 'https://oscarchatapi.openai.azure.com/openai/deployments/oscargpt4-32/chat/completions?api-version=2023-07-01-preview';
 const apiKey = 'be3dc3d39b8d4e07b5ddae4003ac67df';
 const deploymentId = 'oscargpt4-32'; // Your specific deployment ID
 const defaultPrompt = '你可否同时扮演一个医学专家和保险精算师，一方面对客户的健康情况（输出的健康结果必须包含风险等级分级，级别分别为低、中、高分级；同时预测当前健康状况在一年后、三年后、5年后的患病可能）进行全面分析，一方面对可能发生的疾病风险进行概率判断（输出的疾病风险进行概率判断必须为具体的百分比可能性，并对当前时间后一年后、三年后、5年后的患病概率分别进行百分比预测）和费用计算（基于中国的医疗费用标准）。输出的内容请尽量用表格表示。如果你了解了，请回答“我准备好了”，然后我会开始提供客户信息';
