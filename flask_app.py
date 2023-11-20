@@ -8,7 +8,7 @@ app = Flask(__name__)
 openai.api_type = "azure"
 openai.api_base = "https://oscarchatapi.openai.azure.com/"
 openai.api_version = "2023-07-01-preview"
-openai.api_key = os.getenv("d331f54b48c44ea7aeee349a01be247c")  # 确保在环境变量中设置了 API 密钥
+openai.api_key = os.getenv("OPENAI_API_KEY")  # 确保在环境变量中设置了 API 密钥
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
