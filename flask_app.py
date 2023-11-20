@@ -3,7 +3,8 @@ from flask import Flask, request, jsonify, send_from_directory
 import os
 import openai
 
-app = Flask(__name__, static_folder='public')
+app = Flask(__name__, static_folder='public', static_url_path='/static')
+
 
 # Azure OpenAI API 配置
 openai.api_type = "azure"
