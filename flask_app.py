@@ -1,14 +1,19 @@
+
+from flask import Flask, request, jsonify, send_from_directory
 import os
-from flask import Flask, request, jsonify
 import openai
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='public')
 
 # Azure OpenAI API 配置
 openai.api_type = "azure"
 openai.api_base = "https://oscarchatapi.openai.azure.com/"
 openai.api_version = "2023-07-01-preview"
 openai.api_key = os.getenv("OPENAI_API_KEY")  # 确保在环境变量中设置了 API 密钥
+
+@app.route('/')
+def index():
+    return send_from_directory('public', 'index.html')
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
