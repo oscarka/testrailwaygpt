@@ -1,4 +1,5 @@
 
+
 document.getElementById('submitButton').addEventListener('click', function() {
     var customerData = document.getElementById('customerInput').value;
     fetch('/analyze', {
@@ -10,7 +11,12 @@ document.getElementById('submitButton').addEventListener('click', function() {
     })
     .then(response => response.json())
     .then(data => {
-        document.getElementById('response').innerHTML = JSON.stringify(data, null, 2);
+        if (data.choices && data.choices.length > 0) {
+            var aiResponse = data.choices[0].message.content; // 提取 AI 的回答
+            document.getElementById('response').innerHTML = aiResponse;
+        } else {
+            document.getElementById('response').innerHTML = "No response from AI.";
+        }
     })
     .catch(error => {
         console.error('Error:', error);
