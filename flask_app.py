@@ -24,7 +24,7 @@ def analyze():
             {"role": "user", "content": customer_data}
         ]
 
-        completion = openai.Completion.create(
+        completion = openai.ChatCompletion.create(
         engine="oscargpt4-32",
         prompt=customer_data,
         temperature=0.7,
