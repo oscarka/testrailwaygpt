@@ -25,7 +25,6 @@ def analyze():
         ]
 
         completion = openai.Completion.create(
-        model="text-davinci-004",  # 或其他适合的模型
         engine="oscargpt4-32",
         prompt=customer_data,
         temperature=0.7,
