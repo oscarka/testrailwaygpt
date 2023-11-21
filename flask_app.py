@@ -19,11 +19,6 @@ def analyze():
     try:
         customer_data = request.json.get('customerData')
 
-        message_text = [
-            {"role": "system", "content": "You are an AI assistant that helps people find information."},
-            {"role": "user", "content": customer_data}
-        ]
-
 
         completion = openai.ChatCompletion.create(
         engine="oscargpt4-32",
