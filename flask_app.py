@@ -1,4 +1,3 @@
-
 from flask import Flask, request, jsonify, send_from_directory
 import os
 import openai
@@ -17,25 +16,28 @@ def index():
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
-    customer_data = request.json.get('customerData')
+    try:
+        customer_data = request.json.get('customerData')
 
-    message_text = [
-        {"role": "system", "content": "You are an AI assistant that helps people find information."},
-        {"role": "user", "content": customer_data}
-    ]
+        message_text = [
+            {"role": "system", "content": "You are an AI assistant that helps people find information."},
+            {"role": "user", "content": customer_data}
+        ]
 
-    completion = openai.ChatCompletion.create(
-        engine="oscargpt4-32",
-        messages=message_text,
-        temperature=0.7,
-        max_tokens=800,
-        top_p=0.95,
-        frequency_penalty=0,
-        presence_penalty=0,
-        stop=None
-    )
+        completion = openai.ChatCompletion.create(
+            engine="oscargpt4-32",
+            messages=message_text,
+            temperature=0.7,
+            max_tokens=800,
+            top_p=0.95,
+            frequency_penalty=0,
+            presence_penalty=0,
+            stop=None
+        )
 
-    return jsonify(completion)
+        return jsonify(completion)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
