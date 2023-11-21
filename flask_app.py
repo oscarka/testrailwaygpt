@@ -24,17 +24,20 @@ def analyze():
             {"role": "user", "content": customer_data}
         ]
 
-        completion = openai.ChatCompletion.create(
-            engine="oscargpt4-32",
-            messages=message_text,
-            temperature=0.7,
-            max_tokens=800,
-            top_p=0.95,
-            frequency_penalty=0,
-            presence_penalty=0,
-            stop=None
+        completion = openai.Completion.create(
+        model="text-davinci-004",  # 或其他适合的模型
+        prompt=customer_data,
+        temperature=0.7,
+        max_tokens=800,
+        top_p=0.95,
+        frequency_penalty=0,
+        presence_penalty=0,
+        stop=None
         )
 
+
+
+        
         return jsonify(completion)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
