@@ -19,8 +19,16 @@ def analyze():
     try:
         customer_data = request.json.get('customerData')
 
-        message_text = [{"role":"system","content":"You are an AI assistant that helps people find information."},{"role":"user","content":"你好"},
-                        {"role":"assistant","content":"你好！有什么我可以帮助您的吗？"}]
+                # 创建一个包含用户输入的消息
+        user_message = {"role": "user", "content": customer_data}
+
+        # 构建完整的消息文本，包括用户消息
+        message_text = [
+            {"role": "system", "content": "You are an AI assistant that helps people find information."},
+            user_message
+        ]
+
+        
         completion = openai.ChatCompletion.create(
         engine="oscargpt4-32",
         messages = message_text,
