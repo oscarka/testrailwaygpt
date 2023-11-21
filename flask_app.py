@@ -25,7 +25,7 @@ def analyze():
         ]
 
         completion = openai.ChatCompletion.create(
-        engine="oscargpt4-32",
+        model="oscargpt4-32",
         prompt=customer_data,
         temperature=0.7,
         max_tokens=800,
