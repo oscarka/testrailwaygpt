@@ -17,17 +17,24 @@ def index():
 @app.route('/analyze', methods=['POST'])
 def analyze():
     try:
+
         customer_data = request.json.get('customerData')
 
-                # 创建一个包含用户输入的消息
-        user_message = {"role": "user", "content": customer_data}
+        # 预设的提示词
+        preset_prompt = "这是一个预设的提示词: "
 
-        # 构建完整的消息文本，包括用户消息
+        # 将预设的提示词与用户输入结合
+        combined_message = preset_prompt + customer_data
+
+        # 创建包含结合后消息的用户消息
+        user_message = {"role": "user", "content": combined_message}
+
+        # 构建消息文本
         message_text = [
             {"role": "system", "content": "You are an AI assistant that helps people find information."},
             user_message
         ]
-
+        
         
         completion = openai.ChatCompletion.create(
         engine="oscargpt4-32",
