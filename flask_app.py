@@ -24,9 +24,10 @@ def analyze():
             {"role": "user", "content": customer_data}
         ]
 
+
         completion = openai.ChatCompletion.create(
-        model="oscargpt4-32",
-        prompt=customer_data,
+        engine="oscargpt4-32",
+        messages = message_text,
         temperature=0.7,
         max_tokens=800,
         top_p=0.95,
@@ -34,7 +35,6 @@ def analyze():
         presence_penalty=0,
         stop=None
         )
-
 
 
         
