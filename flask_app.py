@@ -40,7 +40,7 @@ def analyze():
         engine="oscargpt4-32",
         messages = message_text,
         temperature=0.7,
-        max_tokens=800,
+        max_tokens=1500,
         top_p=0.95,
         frequency_penalty=0,
         presence_penalty=0,
