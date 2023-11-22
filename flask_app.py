@@ -47,11 +47,14 @@ def analyze():
         stop=None
         )
 
+        # 打印响应数据，以便在控制台查看
+        print(jsonify(completion).get_data(as_text=True))
 
-        
+        # 返回 JSON 响应给前端
         return jsonify(completion)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+        
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
