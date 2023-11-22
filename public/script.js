@@ -13,13 +13,13 @@ document.getElementById('submitButton').addEventListener('click', function() {
     })
     .then(response => response.json())
     .then(data => {
-        if (data.choices && data.choices.length > 0 && data.choices[0].hasOwnProperty('message') && data.choices[0].message.hasOwnProperty('content')) {
-            // Display content immediately after it's available
-            responseContainer.textContent = data.choices[0].message.content;
+        console.log(data); // 打印接收到的完整数据
+        if (data.choices && data.choices.length > 0 && data.choices[0].message && data.choices[0].message.content) {
+        var content = data.choices[0].message.content;
+        document.getElementById('response').textContent = content;
         } else {
-            // If the expected content is not present, log the whole response for debugging
-            responseContainer.textContent = 'Received unexpected data structure from the API.';
-            console.log(data);
+        document.getElementById('response').textContent = 'Received unexpected data structure from the API.';
+        console.log('Unexpected data:', data);
         }
     })
     .catch(error => {
