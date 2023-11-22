@@ -5,53 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OpenAI Azure Interface</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f7f7f7;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        /* Existing styles ... */
+
+        /* Style for the loading indicator */
+        .loading {
+            margin-top: 20px;
+            display: none;
         }
-        .wrapper {
-            text-align: center;
-            background: #fff;
-            padding: 2em;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            width: 80%;
-            max-width: 600px;
-        }
-        textarea, button, #response {
-            width: 100%;
-            padding: 0.5em;
-            margin-top: 0.5em;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            box-sizing: border-box;
-        }
-        textarea {
-            height: 150px;
-            resize: none;
-        }
-        button {
-            background-color: #0056b3;
-            color: white;
-            font-size: 1em;
-            cursor: pointer;
-            border: none;
-        }
-        button:hover {
-            background-color: #003d82;
-        }
+
+        /* Scrollable container for the response */
         #response {
-            background-color: #f0f0f0;
-            min-height: 100px;
-            text-align: left;
-            white-space: pre-wrap; /* Respect the newlines in the response content */
-            overflow-wrap: break-word;
+            /* Existing styles ... */
+            max-height: 300px; /* Limit the height of the response area */
+            overflow-y: auto; /* Add a vertical scrollbar */
         }
     </style>
 </head>
@@ -59,6 +25,7 @@
     <div class="wrapper">
         <textarea id="customerInput" placeholder="请输入您的问题..."></textarea>
         <button id="submitButton">运行</button>
+        <div id="loading" class="loading">解析中...</div>
         <pre id="response"></pre>
     </div>
 
