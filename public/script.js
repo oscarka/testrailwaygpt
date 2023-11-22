@@ -1,7 +1,6 @@
 document.getElementById('submitButton').addEventListener('click', function() {
     var button = this;
     if (button.getAttribute('data-loading') === 'true') {
-        // 如果按钮已经在加载状态，防止重复提交
         return;
     }
     button.setAttribute('data-loading', 'true');
@@ -9,7 +8,7 @@ document.getElementById('submitButton').addEventListener('click', function() {
     var customerData = document.getElementById('customerInput').value;
     var responseContainer = document.getElementById('response');
     var spinner = document.querySelector('.loading-spinner');
-    spinner.style.display = 'inline-block'; // 显示加载指示器
+    spinner.style.display = 'inline-block';
 
     fetch('/analyze', {
         method: 'POST',
