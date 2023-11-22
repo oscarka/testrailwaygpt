@@ -1,9 +1,9 @@
-
 document.getElementById('submitButton').addEventListener('click', function() {
-    // Display the loading indicator
-    document.getElementById('loading').style.display = 'block';
-
     var customerData = document.getElementById('customerInput').value;
+    var button = this;
+    var spinner = document.querySelector('.loading-spinner');
+    spinner.style.display = 'inline-block'; // Show spinner
+
     fetch('/analyze', {
         method: 'POST',
         headers: {
@@ -13,17 +13,14 @@ document.getElementById('submitButton').addEventListener('click', function() {
     })
     .then(response => response.json())
     .then(data => {
-        // Hide the loading indicator
-        document.getElementById('loading').style.display = 'none';
-        // Display the data
-        document.getElementById('response').innerHTML = JSON.stringify(data, null, 2);
-        // Scroll to the top of the response area
-        document.getElementById('response').scrollTop = 0;
+        // Assuming the data structure includes data.choices[0].message.content
+        var content = data.choices[0].message.content;
+        document.getElementById('response').textContent = content; // Display content
+        spinner.style.display = 'none'; // Hide spinner
     })
     .catch(error => {
-        // Hide the loading indicator
-        document.getElementById('loading').style.display = 'none';
         console.error('Error:', error);
-        document.getElementById('response').innerHTML = 'Error: ' + error;
+        document.getElementById('response').textContent = 'Error: ' + error;
+        spinner.style.display = 'none'; // Hide spinner
     });
 });
