@@ -21,14 +21,17 @@ document.getElementById('submitButton').addEventListener('click', function() {
     })
     .then(response => response.json())
     .then(data => {
-    if (data.choices && data.choices.length > 0 && data.choices[0].message && data.choices[0].message.content) {
-        responseContainer.textContent = data.choices[0].message.content;
-    } else {
-        responseContainer.textContent = 'Unexpected data format from API.';
-    }
+        if (data.choices && data.choices.length > 0 && data.choices[0].message && data.choices[0].message.content) {
+            responseContainer.textContent = data.choices[0].message.content;
+        } else {
+            responseContainer.textContent = 'Unexpected data format from API.';
+        }
+    })
+    .catch(error => {
+        responseContainer.textContent = 'Error: ' + error.message;
     })
     .finally(() => {
-    spinner.style.display = 'none';
-    button.removeAttribute('data-loading');
+        spinner.style.display = 'none';
+        button.removeAttribute('data-loading');
     });
 });
