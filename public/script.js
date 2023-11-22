@@ -21,13 +21,27 @@ document.getElementById('submitButton').addEventListener('click', function() {
     })
     .then(response => response.json())
     .then(data => {
-        // 处理数据...
-    })
-    .catch(error => {
-        // 处理错误...
+    if (data.choices && data.choices.length > 0 && data.choices[0].message && data.choices[0].message.content) {
+        responseContainer.textContent = data.choices[0].message.content;
+    } else {
+        responseContainer.textContent = 'Unexpected data format from API.';
+    }
     })
     .finally(() => {
-        spinner.style.display = 'none'; // 隐藏加载指示器
-        button.setAttribute('data-loading', 'false'); // 重置按钮状态
+    spinner.style.display = 'none';
+    button.removeAttribute('data-loading');
     });
+});
+
+
+.then(data => {
+    if (data.choices && data.choices.length > 0 && data.choices[0].message && data.choices[0].message.content) {
+        responseContainer.textContent = data.choices[0].message.content;
+    } else {
+        responseContainer.textContent = 'Unexpected data format from API.';
+    }
+})
+.finally(() => {
+    spinner.style.display = 'none';
+    button.removeAttribute('data-loading');
 });
