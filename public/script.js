@@ -1,4 +1,11 @@
 document.getElementById('submitButton').addEventListener('click', function() {
+    var button = this;
+    if (button.getAttribute('data-loading') === 'true') {
+        // 如果按钮已经在加载状态，防止重复提交
+        return;
+    }
+    button.setAttribute('data-loading', 'true');
+
     var customerData = document.getElementById('customerInput').value;
     var responseContainer = document.getElementById('response');
     var spinner = document.querySelector('.loading-spinner');
@@ -8,23 +15,19 @@ document.getElementById('submitButton').addEventListener('click', function() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Cache-Control': 'no-cache' // 确保不使用缓存
+            'Cache-Control': 'no-cache'
         },
         body: JSON.stringify({ customerData: customerData })
     })
     .then(response => response.json())
     .then(data => {
-        if (data.choices && data.choices.length > 0 && data.choices[0].message && data.choices[0].message.content) {
-            // 确保只显示 content 字段的内容
-            responseContainer.textContent = data.choices[0].message.content;
-        } else {
-            // 如果预期的 content 字段不存在，显示错误消息
-            responseContainer.textContent = 'API返回的数据结构不符合预期。';
-        }
-        spinner.style.display = 'none'; // 隐藏加载指示器
+        // 处理数据...
     })
     .catch(error => {
-        responseContainer.textContent = '发生错误：' + error.message;
+        // 处理错误...
+    })
+    .finally(() => {
         spinner.style.display = 'none'; // 隐藏加载指示器
+        button.setAttribute('data-loading', 'false'); // 重置按钮状态
     });
 });
