@@ -11,28 +11,23 @@ document.getElementById('submitButton').addEventListener('click', function() {
         },
         body: JSON.stringify({ customerData: customerData })
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok.');
-        }
-        return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
-        // Check if the data structure has the expected content field
-        if (data.choices && data.choices.length > 0 && data.choices[0].message && data.choices[0].message.content) {
-            var content = data.choices[0].message.content;
-            responseContainer.textContent = content; // Display content
+        if (data.choices && data.choices.length > 0 && data.choices[0].hasOwnProperty('message') && data.choices[0].message.hasOwnProperty('content')) {
+            // Display content immediately after it's available
+            responseContainer.textContent = data.choices[0].message.content;
         } else {
-            // If the expected content field is not present, show a default message or the whole response for debugging
+            // If the expected content is not present, log the whole response for debugging
             responseContainer.textContent = 'Received unexpected data structure from the API.';
-            console.log(data); // Log the whole data for debugging
+            console.log(data);
         }
     })
     .catch(error => {
-        console.error('Error:', error);
+        // Handle any errors that occurred during fetch or data processing
         responseContainer.textContent = 'Error: ' + error.message;
     })
     .finally(() => {
-        spinner.style.display = 'none'; // Hide spinner in both cases (success/error)
+        // Always hide the spinner after processing is complete
+        spinner.style.display = 'none';
     });
 });
