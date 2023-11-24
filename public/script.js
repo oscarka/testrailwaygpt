@@ -18,7 +18,12 @@ document.getElementById('submitButton').addEventListener('click', function() {
         },
         body: JSON.stringify({ customerData: customerData })
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
     .then(data => {
         if (data.choices && data.choices.length > 0 && data.choices[0].message && data.choices[0].message.content) {
             responseContainer.textContent = data.choices[0].message.content;
