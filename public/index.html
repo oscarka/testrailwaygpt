@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh"> <!-- 修改语言为中文 -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,13 +9,14 @@
 <body>
     <div id="container">
         <div id="inputContainer">
-            <textarea id="customerInput" placeholder="请输入您的健康状况..."></textarea>
-            <button id="submitButton">运行</button>
+            <textarea id="customerInput" aria-label="健康状况输入" placeholder="请输入您的健康状况..."></textarea>
+            <button id="submitButton" type="button" aria-label="运行评估">运行</button>
         </div>
         <div id="outputContainer">
             <div id="response"></div>
         </div>
     </div>
+    <div class="loading-spinner" style="display: none;">加载中...</div> <!-- 添加加载指示器 -->
     <script src="/static/script.js"></script>
 </body>
 </html>
