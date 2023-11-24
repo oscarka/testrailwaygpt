@@ -49,10 +49,26 @@ body, html {
     overflow-wrap: break-word;
 }
 
+
 .loading-spinner {
-    /* Loading spinner styles */
-    /* ... 略去未改动的 spinner 样式 ... */
-}
+            display: none;
+            position: absolute;
+            right: -35px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 4px solid #f3f3f3; /* Light grey */
+            border-top: 4px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: translateY(-50%) rotate(0deg); }
+            100% { transform: translateY(-50%) rotate(360deg); }
+        }
+
 
 @media screen and (max-width: 768px) {
     .container {
