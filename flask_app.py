@@ -38,7 +38,7 @@ def analyze():
         completion = openai.ChatCompletion.create(
         engine="oscargpt4-32",
         messages = message_text,
-        temperature=0.7,
+        temperature=0.3,
         max_tokens=1500,
         top_p=0.95,
         frequency_penalty=0,
